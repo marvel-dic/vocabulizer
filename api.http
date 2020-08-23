@@ -1,0 +1,22 @@
+POST https://vocabulizer.herokuapp.com/api/v0/get-dictionary-from-src
+
+body: {
+src: string
+}
+
+res: {
+data: {
+src: string,
+dictionary: [<entry>],
+}
+error: null/string
+meta: {
+languages: enum(string)
+}
+}
+
+entry: {
+dictionaryWord: string,
+partOfSpeechTag: enum(string),
+entriesInSrc: [{start: number, end: number}]
+}
