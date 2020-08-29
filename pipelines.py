@@ -19,13 +19,13 @@ def used_vocabulary(text):
         if (token.lemma_, token.pos_) in stop_words or token.is_digit or token.is_punct or token.like_num or \
                 token.like_email or token.like_url or token.is_currency:
             continue
-        words[(token.lemma_, token.pos_)] = [words.get((token.lemma_, token.pos_), [0])[0] + 1]
+        words[(token.lemma_, token.pos_)] = words.get((token.lemma_, token.pos_), []) + [(token.idx, len(token))]
         # words[token.lemma_] = [words.get(token.lemma_, [0])[0] + 1]
         # if token.lemma_ not in words:
         #     words[token.lemma_] = {}
         # words[token.lemma_][token.pos_] = words[token.lemma_].get(token.pos_, 0) + 1
 
-    return pd.DataFrame.from_dict(words, orient="index", columns=["count"]).sort_values(by=["count"], ascending=False)
+    return words
 
 
 if __name__ == "__main__":
