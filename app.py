@@ -11,16 +11,26 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 @app.route("/api/{}/get-dictionary-from-src".format(api_version), methods=['POST'])
 def get_dictionary_from_src():
     src = json.loads(request.data)["src"]
-    # TODO: SET CONTENT-TYPE
-    return json.dumps({
-        "data": {"src": src, "dictionary": [{"dictionaryWord": k[0],
-                                             "partOfSpeechTag": k[1],
-                                             "entriesInSrc": [{"start": entry[0], "end":
-                                                 entry[0]+entry[1]} for entry in v]
-                                             } for k, v in used_vocabulary(src).items()]},
+    return Response(json.dumps({
+        "data": {"words": [
+            {"dictionaryWord": k[0],
+             "partOfSpeechTag": k[1],
+             "languages": ["en"],
+             }
+            for k, v in used_vocabulary(src).items()
+            ]
+                 },
         "error": None,
-        "meta": {"languages": ["en"]}
-        })
+        "meta": {
+            "entries": [
+                {
+                    "word": k[0],
+                    "entries": [{"start": entry[0], "end": entry[0] + entry[1]} for entry in v]
+                    }
+                for k, v in used_vocabulary(src).items()
+                ]
+            }
+        }), content_type="application/json")
 
 
 if __name__ == "__main__":
