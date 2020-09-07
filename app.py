@@ -8,8 +8,9 @@ app = Flask(__name__)
 
 @app.route("/api/{}/get-dictionary-from-src".format(api_version), methods=['POST'])
 def get_dictionary_from_src():
-    src = json.loads(request.data)["body"]["src"]
-    return json.dumps({"res": {
+    src = json.loads(request.data)["src"]
+    # TODO: SET CONTENT-TYPE
+    return json.dumps({
         "data": {"src": src, "dictionary": [{"dictionaryWord": k[0],
                                              "partOfSpeechTag": k[1],
                                              "entriesInSrc": [{"start": entry[0], "end":
@@ -17,7 +18,7 @@ def get_dictionary_from_src():
                                              } for k, v in used_vocabulary(src).items()]},
         "error": None,
         "meta": {"languages": ["en"]}
-        }})
+        })
 
 
 if __name__ == "__main__":
