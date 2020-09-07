@@ -1,9 +1,11 @@
 import json
-from flask import Flask, request
+from flask_cors import CORS
+from flask import Flask, request, Response
 from settings import api_version
 from pipelines import used_vocabulary
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
 @app.route("/api/{}/get-dictionary-from-src".format(api_version), methods=['POST'])
