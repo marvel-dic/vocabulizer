@@ -4,7 +4,7 @@ This module contains functions to process text and return its features
 import spacy
 import pandas as pd
 
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_lg")
 
 
 def used_vocabulary(text):
