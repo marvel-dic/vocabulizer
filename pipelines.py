@@ -2,9 +2,18 @@
 This module contains functions to process text and return its features
 """
 import spacy
+import subprocess
+import sys
 import pandas as pd
 
-nlp = spacy.load("en_core_web_lg")
+try:
+    nlp = spacy.load("en_core_web_lg")
+except OSError:
+    bashCommand = "python -m spacy download en_core_web_lg"
+    process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    print(output)
+    sys.exit(-1)
 
 
 def used_vocabulary(text):
