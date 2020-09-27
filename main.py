@@ -1,9 +1,9 @@
+# [START gae_python37_app]
 import json
 from flask_cors import CORS
 from flask import Flask, request, Response
 from settings import api_version
 from pipelines import used_vocabulary
-
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
@@ -31,6 +31,12 @@ def get_dictionary_from_src():
                 ]
             }
         }), content_type="application/json")
+
+
+@app.route('/')
+def hello():
+    """Return a friendly HTTP greeting."""
+    return 'Hello World!'
 
 
 if __name__ == "__main__":
