@@ -10,7 +10,7 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 @app.route("/api/{}/get-dictionary-from-src".format(api_version), methods=['POST'])
 def get_dictionary_from_src():
-    src = json.loads(request.data)["src"]
+    src = request.json["src"]
     return Response(json.dumps({
         "data": {"words": [
             {"dictionaryWord": k[0],
