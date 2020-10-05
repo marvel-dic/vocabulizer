@@ -1,0 +1,8 @@
+{
+  "NOUN": "noun",
+  "ADP": null,
+  "ADJ": "adjective",
+  "ADV": "adverb",
+  "PROPN": "proper-noun",
+  "VERB": "verb"
+}
