@@ -13,7 +13,7 @@ except OSError:
     process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
     output, error = process.communicate()
     print(output)
-    sys.exit(-1)
+    # sys.exit(-1)
 
 
 def used_vocabulary(text):

@@ -12,4 +12,4 @@ with open(os.path.join(secrets_path, "wordnik.json"), 'r') as f:
 with open(os.path.join(dictionaries_path, "spacy_wordnik_pos_tags.json"), "r") as f:
     spc_wrdnk_pos_dict = json.load(f)
 
-PORT = 8080
+PORT = 80

@@ -1,3 +1,4 @@
+import datetime
 import json
 
 import requests
@@ -72,6 +73,11 @@ def hello():
 @app.route("/api/{}/health".format(api_version))
 def ping():
     return 'Hello World!'
+
+
+@app.route("/")
+def root():
+    return "It is {} on server".format(datetime.datetime.now().strftime("%H-%M-%S"))
 
 
 if __name__ == "__main__":

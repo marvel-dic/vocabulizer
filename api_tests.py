@@ -35,7 +35,7 @@ class VocabulizerAPI(unittest.TestCase):
         pass
 
     def test_api_dictionary_from_src(self):
-        with open("text_sample.txt", "r") as f:
+        with open("text_sample.txt", "r", encoding="utf8") as f:
             text_sample = f.read()
         r = self.app.post("api/{}/get-dictionary-from-src".format(api_version),
                           json={"src": text_sample})
@@ -63,7 +63,7 @@ class VocabulizerAPI(unittest.TestCase):
         print(r_2.json)
 
     def test_api_definitions_from_src(self):
-        with open("text_sample.txt", "r") as f:
+        with open("text_sample.txt", "r", encoding="utf8") as f:
             text_sample = f.read()
         r = self.app.post("api/{}/get-dictionary-from-src".format(api_version),
                           json={"src": text_sample})
