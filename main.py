@@ -1,7 +1,8 @@
 import datetime
 import json
-
+import random
 import requests
+
 from flask_cors import CORS
 from flask import Flask, request, Response
 from settings import api_version, wordnik_api_key, spc_wrdnk_pos_dict, PORT
@@ -21,6 +22,7 @@ def get_dictionary_from_src():
                 "dictionaryWord": k[0],
                 "partOfSpeechTag": k[1],
                 "languages": ["en"],
+                "known": random.choice([True, False])
             }
             for k, v in used_vocabulary(src).items()
         ]
