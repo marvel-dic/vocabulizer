@@ -77,6 +77,15 @@ def ping():
     return 'Hello World!'
 
 
+@app.route("/api/{}/add-known-word".format(api_version), methods=['POST'])
+def add_known_word():
+    word = request.json["dictionaryWord"]
+    pos = request.json["partOfSpeechTag"]
+    source = request.json["source"]
+    print((word, pos, source))
+    return Response("Wow! Such a vocabulary! Much words!")
+
+
 @app.route("/")
 def root():
     return "It is {} on server".format(datetime.datetime.now().strftime("%H-%M-%S"))
