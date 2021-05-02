@@ -1,20 +1,33 @@
-import datetime
 import json
 import random
 import requests
 
-from flask_cors import CORS
-from flask import Flask, request, Response
-from settings import api_version, wordnik_api_key, spc_wrdnk_pos_dict, PORT
-from pipelines import used_vocabulary
+from flask_login import login_required, current_user
+from flask import Blueprint, render_template
+from flask import request, Response
+from flask_sqlalchemy import SQLAlchemy
+from .models import User
 
-app = Flask(__name__)
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+from vocabulizer.settings import api_version, wordnik_api_key, spc_wrdnk_pos_dict
+from vocabulizer.pipelines import used_vocabulary
+
+main = Blueprint('main', __name__)
 
 
-@app.route("/api/{}/get-dictionary-from-src".format(api_version), methods=['POST'])
+@main.route('/')
+def index():
+    return render_template('index.html')
+
+
+@main.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html', name=current_user.name)
+
+
+@main.route("/api/{}/get-dictionary-from-vocabulizer".format(api_version), methods=['POST'])
 def get_dictionary_from_src():
-    src = request.json["src"]
+    src = request.json["vocabulizer"]
     return Response(json.dumps({
         "data": {"words": [
             {
@@ -42,8 +55,8 @@ def get_dictionary_from_src():
 
 
 # TODO: add endpoint for word definitions
-@app.route("/api/{}/<word>/definitions".format(api_version), methods=["GET"])
-# @app.route("/api/{}/<word>/<pos>/definitions")
+@main.route("/api/{}/<word>/definitions".format(api_version), methods=["GET"])
+# @main.route("/api/{}/<word>/<pos>/definitions")
 def get_word_definitions(word):
     pos_tag = request.args.get("pos")
 
@@ -65,31 +78,22 @@ def get_word_definitions(word):
                     content_type="application/json")
 
 
-@app.route('/api/{}/'.format(api_version))
+@main.route('/api/{}/'.format(api_version))
 def hello():
     """Return a friendly HTTP greeting."""
     #   TODO: Return link on documentation
     return 'Hello World!'
 
 
-@app.route("/api/{}/health".format(api_version))
+@main.route("/api/{}/health".format(api_version))
 def ping():
     return 'Hello World!'
 
 
-@app.route("/api/{}/add-known-word".format(api_version), methods=['POST'])
+@main.route("/api/{}/add-known-word".format(api_version), methods=['POST'])
 def add_known_word():
     word = request.json["dictionaryWord"]
     pos = request.json["partOfSpeechTag"]
     source = request.json["source"]
     print((word, pos, source))
     return Response("Wow! Such a vocabulary! Much words!")
-
-
-@app.route("/")
-def root():
-    return "It is {} on server".format(datetime.datetime.now().strftime("%H-%M-%S"))
-
-
-if __name__ == "__main__":
-    app.run("127.0.0.1", port=PORT, debug=True)

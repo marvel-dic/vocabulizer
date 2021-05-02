@@ -1,8 +1,8 @@
 import unittest
 import requests
 
-from main import app
-from settings import wordnik_api_key, PORT, api_version
+from app import app
+from vocabulizer.settings import wordnik_api_key, PORT, api_version
 
 
 class WordnikAPI(unittest.TestCase):
@@ -37,8 +37,8 @@ class VocabulizerAPI(unittest.TestCase):
     def test_api_dictionary_from_src(self):
         with open("text_sample.txt", "r", encoding="utf8") as f:
             text_sample = f.read()
-        r = self.app.post("api/{}/get-dictionary-from-src".format(api_version),
-                          json={"src": text_sample})
+        r = self.app.post("api/{}/get-dictionary-from-vocabulizer".format(api_version),
+                          json={"vocabulizer": text_sample})
         self.assertEqual(r.status_code, 200)
         print(r.json)
 
@@ -65,8 +65,8 @@ class VocabulizerAPI(unittest.TestCase):
     def test_api_definitions_from_src(self):
         with open("text_sample.txt", "r", encoding="utf8") as f:
             text_sample = f.read()
-        r = self.app.post("api/{}/get-dictionary-from-src".format(api_version),
-                          json={"src": text_sample})
+        r = self.app.post("api/{}/get-dictionary-from-vocabulizer".format(api_version),
+                          json={"vocabulizer": text_sample})
         self.assertEqual(r.status_code, 200)
         for w in r.json["data"]["words"][:10]:
             definition_r = self.app.get("api/{}/{}/definitions?pos={}".format(api_version, w["dictionaryWord"],
