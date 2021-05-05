@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/vocabulizer-frontend/static/css/main.88484a16.chunk.css",
+    "main.js": "/vocabulizer-frontend/static/js/main.14be3f4d.chunk.js",
+    "main.js.map": "/vocabulizer-frontend/static/js/main.14be3f4d.chunk.js.map",
+    "runtime-main.js": "/vocabulizer-frontend/static/js/runtime-main.e121356d.js",
+    "runtime-main.js.map": "/vocabulizer-frontend/static/js/runtime-main.e121356d.js.map",
+    "static/js/2.631743fb.chunk.js": "/vocabulizer-frontend/static/js/2.631743fb.chunk.js",
+    "static/js/2.631743fb.chunk.js.map": "/vocabulizer-frontend/static/js/2.631743fb.chunk.js.map",
+    "index.html": "/vocabulizer-frontend/index.html",
+    "precache-manifest.cfd84ad3e72cacd89c326eecec0d6a9a.js": "/vocabulizer-frontend/precache-manifest.cfd84ad3e72cacd89c326eecec0d6a9a.js",
+    "service-worker.js": "/vocabulizer-frontend/service-worker.js",
+    "static/css/main.88484a16.chunk.css.map": "/vocabulizer-frontend/static/css/main.88484a16.chunk.css.map",
+    "static/js/2.631743fb.chunk.js.LICENSE.txt": "/vocabulizer-frontend/static/js/2.631743fb.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e121356d.js",
+    "static/js/2.631743fb.chunk.js",
+    "static/css/main.88484a16.chunk.css",
+    "static/js/main.14be3f4d.chunk.js"
+  ]
+}

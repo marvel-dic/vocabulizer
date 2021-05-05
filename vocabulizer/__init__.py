@@ -8,7 +8,6 @@ from vocabulizer.etl.config import DATABASE_URI
 
 db = SQLAlchemy()
 
-
 def create_app():
     app = Flask(__name__)
     # cors = CORS(app, resources={r"/api/*": {"origins": "*"}})

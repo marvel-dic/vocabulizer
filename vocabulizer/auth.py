@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
-from .models import User
+from .models import User, UserVocabulary
 from . import db
 
 auth = Blueprint('auth', __name__)
@@ -57,9 +57,11 @@ def signup_post():
 
     # create a new user with the form data. Hash the password so the plaintext version isn't saved.
     new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
+    new_vocab = UserVocabulary(user=new_user, language="en", user_id=new_user.id)
 
     # add the new user to the database
     db.session.add(new_user)
+    db.session.add(new_vocab)
     db.session.commit()
 
     return redirect(url_for('auth.login'))
