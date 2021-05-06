@@ -31,36 +31,6 @@ def reader():
     return main.send_static_file('index.html')
 
 
-# @main.route("/add-known-word", methods=['POST'])
-# @login_required
-# def form_add_known_word():
-#     word = request.form.get("word")
-#     pos = request.form.get("pos")
-#     print(current_user.id, word, pos)
-#
-#     word_obj = Word.query.filter_by(text=word, pos=pos).first()
-#
-#     if word_obj is None:
-#         word_obj = Word(text=word, pos=pos)
-#         db.session.add(word_obj)
-#         db.session.commit()
-#
-#     user_vocabulary = UserVocabulary.query.filter_by(user_id=current_user.id).first()
-#     vocab_entry = VocabularyEntry.query.filter_by(vocab=user_vocabulary, word_id=word_obj.id, word=word_obj).first()
-#
-#     if vocab_entry is None:
-#         vocab_entry = VocabularyEntry(vocab=user_vocabulary, vocab_id=user_vocabulary.id, word_id=word_obj.id,
-#                                       word=word_obj, read_times=1, know_times=1, known_before=True)
-#         db.session.add(vocab_entry)
-#         db.session.commit()
-#     else:
-#         flash('YOU ALREADY ADDED THIS WORD PUNK!')
-#         return redirect(url_for('main.add_known_word'))
-#
-#     # source = request.form.get["source"]
-#
-#     return redirect(url_for('main.add_known_word'))
-
 @main.route("/get-dictionary-from-src".format(api_version), methods=['POST'])
 @main.route("/api/{}/get-dictionary-from-src".format(api_version), methods=['POST'])
 @login_required
@@ -93,7 +63,7 @@ def get_dictionary_from_src():
         }), content_type="application/json")
 
 
-@main.route("word/<word>/definitions".format(api_version), methods=["GET"])
+@main.route("/word/<word>/definitions".format(api_version), methods=["GET"])
 def get_word_definitions(word):
     pos_tag = request.args.get("pos")
 
@@ -136,6 +106,35 @@ def add_known_word():
     if vocab_entry is None:
         vocab_entry = VocabularyEntry(vocab=user_vocabulary, vocab_id=user_vocabulary.id, word_id=word_obj.id,
                                       word=word_obj, read_times=1, know_times=1, known_before=True)
+        db.session.add(vocab_entry)
+        db.session.commit()
+
+    # source = request.form.get["source"]
+
+    return Response("Wow! Such a vocabulary! Much words!")
+
+
+@main.route("/add-to-memorise", methods=["POST"])
+@login_required
+def add_to_memorise():
+    word = request.json["dictionaryWord"]
+    pos = request.json["partOfSpeechTag"]
+    source = request.json["source"]
+    print((word, pos, source))
+
+    word_obj = Word.query.filter_by(text=word, pos=pos).first()
+
+    if word_obj is None:
+        word_obj = Word(text=word, pos=pos)
+        db.session.add(word_obj)
+        db.session.commit()
+
+    user_vocabulary = UserVocabulary.query.filter_by(user_id=current_user.id).first()
+    vocab_entry = VocabularyEntry.query.filter_by(vocab=user_vocabulary, word_id=word_obj.id, word=word_obj).first()
+
+    if vocab_entry is None:
+        vocab_entry = VocabularyEntry(vocab=user_vocabulary, vocab_id=user_vocabulary.id, word_id=word_obj.id,
+                                      word=word_obj, read_times=1, know_times=0, known_before=False)
         db.session.add(vocab_entry)
         db.session.commit()
 

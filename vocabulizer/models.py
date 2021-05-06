@@ -1,4 +1,5 @@
 from flask_login import UserMixin
+from datetime import datetime
 from . import db
 
 
@@ -27,6 +28,8 @@ class VocabularyEntry(db.Model):
     challenged_times = db.Column(db.Integer, default=0)
     know_times = db.Column(db.Integer, default=0)
     known_before = db.Column(db.Boolean, default=False)
+    last_challenged = db.Column(db.DateTime, default=None)
+    created = db.Column(db.DateTime, default=datetime.utcnow)
 
 
 class Word(db.Model):
