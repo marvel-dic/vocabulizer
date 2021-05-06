@@ -12,7 +12,7 @@ useradd -m -d /home/pythonapp pythonapp
 
 # Fetch source code
 export HOME=/root
-git clone https://github.com/marvel-dic/vocabulizer.git /opt/app -b gcp_app
+git clone https://github.com/marvel-dic/vocabulizer.git /opt/app -b minimal_gcp_app
 cd /opt/app
 git pull
 git checkout
