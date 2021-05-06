@@ -13,3 +13,4 @@ with open(os.path.join(dictionaries_path, "spacy_wordnik_pos_tags.json"), "r") a
     spc_wrdnk_pos_dict = json.load(f)
 
 PORT = 80
+DATABASE_URI = 'postgresql+psycopg2://vocabulizer:TdHCTWU12ywK0fZ1Wpc0@localhost:5432/vocabulizer'

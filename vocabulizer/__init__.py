@@ -4,9 +4,10 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
 # init SQLAlchemy so we can use it later in our models
-from vocabulizer.etl.config import DATABASE_URI
+from vocabulizer.settings import DATABASE_URI
 
 db = SQLAlchemy()
+
 
 def create_app():
     app = Flask(__name__)

@@ -2,8 +2,11 @@ spacy==2.3.2
 Flask==1.1.2
 Flask-Cors==3.0.9
 Flask-User==1.0.2
+flask-login==0.5.0
 pandas
+Flask-SQLAlchemy==2.5.1
 honcho==1.0.1
+psycopg2==2.8.6
 gunicorn==20.0.4
 en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.1/en_core_web_sm-2.3.1.tar.gz
 en-core-web-lg @ https://github.cpom/explosion/spacy-models/releases/download/en_core_web_lg-2.3.1/en_core_web_lg-2.3.1.tar.gz

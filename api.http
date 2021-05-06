@@ -1,4 +1,4 @@
-POST https://vocabulizer.herokuapp.com/api/v0/get-dictionary-from-src
+POST 35.246.237.92:8080/api/v0/get-dictionary-from-src
 
 body: {
 src: string
@@ -19,4 +19,13 @@ entry: {
 dictionaryWord: string,
 partOfSpeechTag: enum(string),
 entriesInSrc: [{start: number, end: number}]
+}
+
+
+POST 35.246.237.92:8080/api/v0/add-known-word
+
+body: {
+dictionaryWord: string,
+partOfSpeechTag: enum(string),
+source: enum(string)
 }

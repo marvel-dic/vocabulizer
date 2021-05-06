@@ -20,26 +20,10 @@ def index():
     return render_template('index.html')
 
 
-# @main.route('/vocabulizer-frontend/<path:path>')
-# def send_js(path):
-#     return redirect(url_for('static', filename="static/"+path.lstrip('static/')))
-#
-#
-# @main.route('/vocabulizer-frontend/<filename>')
-# def send_static(filename):
-#     return redirect(url_for('static', filename=filename))
-
-
 @main.route('/profile')
 @login_required
 def profile():
     return render_template('profile.html', name=current_user.name)
-
-
-# @main.route('/add-known-word')
-# @login_required
-# def add_known_word():
-#     return render_template('add_known_word.html')
 
 
 @main.route('/reader')
@@ -86,7 +70,6 @@ def get_dictionary_from_src():
     return Response(json.dumps({
         "data": {"words": [
             {
-                # TODO: Add id
                 "dictionaryWord": k[0],
                 "partOfSpeechTag": k[1],
                 "languages": ["en"],
@@ -101,7 +84,6 @@ def get_dictionary_from_src():
         "meta": {
             "entries": [
                 {
-                    # TODO: Make unique dictionary identifiers for words with the same spelling
                     "word": k[0],
                     "entries": [{"start": entry[0], "end": entry[0] + entry[1]} for entry in v]
                     }
@@ -111,9 +93,7 @@ def get_dictionary_from_src():
         }), content_type="application/json")
 
 
-# TODO: add endpoint for word definitions
-@main.route("/api/{}/<word>/definitions".format(api_version), methods=["GET"])
-# @main.route("/api/{}/<word>/<pos>/definitions")
+@main.route("word/<word>/definitions".format(api_version), methods=["GET"])
 def get_word_definitions(word):
     pos_tag = request.args.get("pos")
 
@@ -135,21 +115,7 @@ def get_word_definitions(word):
                     content_type="application/json")
 
 
-@main.route('/api/{}/'.format(api_version))
-def hello():
-    """Return a friendly HTTP greeting."""
-    #   TODO: Return lin
-    #    k on documentation
-    return 'Hello World!'
-
-
-@main.route("/api/{}/health".format(api_version))
-def ping():
-    return 'Hello World!'
-
-
 @main.route('/add-known-word', methods=['POST'])
-@main.route("/api/{}/add-known-word".format(api_version), methods=['POST'])
 @login_required
 def add_known_word():
     word = request.json["dictionaryWord"]
@@ -173,7 +139,6 @@ def add_known_word():
         db.session.add(vocab_entry)
         db.session.commit()
 
-    # return redirect(url_for('main.add_known_word'))
-
     # source = request.form.get["source"]
+
     return Response("Wow! Such a vocabulary! Much words!")
