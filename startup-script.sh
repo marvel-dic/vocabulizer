@@ -27,6 +27,8 @@ apt-get install postgresql postgresql-contrib
 virtualenv -p python3.7 /opt/app/env
 source /opt/app/env/bin/activate
 /opt/app/env/bin/pip install -r /opt/app/requirements.txt
+/opt/app/env/bin/python download en_core_web_sm
+# /opt/app/env/bin/python download en_core_web_lg
 
 # Set ownership to newly created account
 chown -R pythonapp:pythonapp /opt/app
