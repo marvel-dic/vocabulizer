@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, Response
 from flask_login import login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import User, UserVocabulary
@@ -43,12 +43,7 @@ def logout():
     return redirect(url_for('main.index'))
 
 
-@auth.route('/signup', methods=['POST'])
-def signup_post():
-    email = request.form.get('email')
-    name = request.form.get('name')
-    password = request.form.get('password')
-
+def create_user(email, name, password):
     user = User.query.filter_by(email=email).first() # if this returns a user, then the email already exists in database
 
     if user: # if a user is found, we want to redirect back to signup page so user can try again
@@ -64,4 +59,15 @@ def signup_post():
     db.session.add(new_vocab)
     db.session.commit()
 
+
+@auth.route('/signup', methods=['POST'])
+def signup_post():
+    create_user(request.form.get('email'), request.form.get('name'), request.form.get('password'))
     return redirect(url_for('auth.login'))
+
+
+@auth.route('/create_user', methods=['POST'])
+def create_user_post():
+    create_user(request.json.get('email'), request.json.get('name'), request.json.get("password"))
+    return Response("User created!")
+
