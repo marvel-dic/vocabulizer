@@ -13,7 +13,7 @@ def used_vocabulary(text):
     """This functions takes a text and returns the vocabulary of the unique words"""
     stop_words = [('-PRON-', 'PRON'), ('.', 'PUNCT'), (',', 'PUNCT'), ('-PRON-', 'DET'), ('-', 'PUNCT'),
                   ('"', 'PUNCT'), ('\n\n', 'SPACE'), ('’s', 'PART'), ('’', 'VERB'), ('’d', 'VERB'), (';', 'PUNCT'),
-                  ('?', 'PUNCT'), ('\n\n ', 'SPACE'), ('’d', 'PUNCT')]
+                  ('?', 'PUNCT'), ('\n\n ', 'SPACE'), ('’d', 'PUNCT'), ('\n', "SPACE")]
 
     doc = nlp(text)
     words = {}
