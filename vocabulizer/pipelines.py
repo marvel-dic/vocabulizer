@@ -6,7 +6,14 @@ import subprocess
 import sys
 import pandas as pd
 
-nlp = spacy.load("en_core_web_lg")
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    bashCommand = "python -m spacy download en_core_web_sm"
+    process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    print(output)
+    sys.exit(-1)
 
 
 def used_vocabulary(text):
