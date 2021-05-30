@@ -203,12 +203,13 @@ def flashcard_question():
         )
 
     definitions_list = [{"pos": definition["partOfSpeech"], "text": definition["text"].replace("<xref>", "").replace("</xref>", "")}
-                        for definition in words_definitions_r.json() if "text" in definition]
+                        for definition in words_definitions_r.json() if "text" in definition and "partOfSpeech" in
+                        definition]
 
     examples_list = [{"title": example["title"],
                       "text":example["text"].replace(vocab_entry.word.text,
                                                      "{}".format(vocab_entry.word.text))}
-                     for example in words_examples_r.json()["examples"]]
+                     for example in words_examples_r.json()["examples"] if "title" in example and "text" in example]
 
     return render_template("flashcard.html",
                            word=vocab_entry.word.text + " ({})".format(vocab_entry.word.pos),
