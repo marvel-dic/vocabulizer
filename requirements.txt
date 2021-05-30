@@ -10,3 +10,4 @@ psycopg2
 gunicorn==20.0.4
 apscheduler
 scikit-learn
+supermemo2==2.0.0
