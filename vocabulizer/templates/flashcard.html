@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div id="question">
+<h1 class="title">
+    {{ word.capitalize() }}
+</h1>
+</div>
+
+<div id="answer" style="display: none" class="tile is-ancestor">
+    <div class="tile">
+
+    <div id="definitions" class="tile is-vertical is-child notification is-info">
+        <h1 class="title" >
+            {{ word.capitalize() }}
+        </h1>
+    <h2 class="subtitle">Definitions</h2 >
+        <ul class="content">
+        {% for definition in definitions %}
+
+            <li ><b>{{ definition["pos"] }}</b> {{definition["text"]}}</li>
+
+        {% endfor %}
+        </ul>
+    </div>
+    <div id="examples" class="tile is-vertical is-child notification is-warning">
+        <h2 class="subtitle">Examples</h2>
+        <ul class="content">
+            {% for example in examples %}
+
+            <li>{{example["text"]}}
+                <b>{{ example["title"] }}</b> </li>
+
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+</div>
+
+<script>
+    function selfCheckStage() {
+        var x = document.getElementById("selfCheck");
+        var y = document.getElementById("recall");
+        var a = document.getElementById("answer");
+        var q = document.getElementById("question")
+        q.style.display = "none";
+        x.style.display = "block";
+        y.style.display = "none";
+        a.style.display = "block";
+    }
+
+    function recall() {
+        var x = document.getElementById("recallSuccess");
+        x.style.display = "block";
+        selfCheckStage();
+    }
+</script>
+
+<div id="recall">
+
+    <button onclick="recall()">I remember it</button>
+
+    <button onclick="selfCheckStage()">Remind me</button>
+
+</div>
+
+<div id="selfCheck" style="display:none">
+
+<form action="/flashcard_answer" method="post" id="recallSuccess" style="display:none">
+    <input type="hidden" name="remember" value="true" />
+    <input type="hidden" name="word_id" value={{ word_id }} />
+    <button type="submit">That was easy</button>
+</form>
+
+<form action="/flashcard_answer" method="post">
+    <input type="hidden" name="remember" value="false" />
+    <input type="hidden" name="word_id" value={{ word_id }} />
+    <button type="submit">I'll need to review it again</button>
+</form>
+
+</div>
+
+{% endblock %}

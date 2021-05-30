@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="/tenses_answer" method="post">
+        <ul>
+{% for item in items %}
+<li>
+    {{item.question.split("{")[0]}}<input type="text" name={{item.id}}>{{item.question.split("}")[1]}} <b>({{ item.hint }})</b>
+</li>
+{% endfor %}
+</ul>
+        <button type="submit">Answer</button>
+</form>
+{% endblock %}

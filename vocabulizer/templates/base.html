@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Flask Auth Example</title>
+    <title>Vocabulizer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
 </head>
 
@@ -24,6 +24,15 @@
                             {% if current_user.is_authenticated %}
                             <a href="{{ url_for('main.profile') }}" class="navbar-item">
                                 Profile
+                            </a>
+                            <a href="{{ url_for('main.reader') }}" class="navbar-item">
+                                Reading challenge
+                            </a>
+                            <a href="{{ url_for('main.flashcard_question') }}" class="navbar-item">
+                                Flashcard challenge
+                            </a>
+                            <a href="{{ url_for('main.tenses_question') }}" class="navbar-item">
+                                Tenses challenge
                             </a>
                             {% endif %}
                             {% if not current_user.is_authenticated %}

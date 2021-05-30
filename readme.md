@@ -1,6 +1,6 @@
-# Vocabulizer: Extraction of unique words from input text
+You can deploy app using __deploy.sh__ script. But you will also need to set up Postgres Database on the instance
 
-```
-pip install -r requirements.txt
-streamlit run app.py
-```
+Before usage you should add some data to the database
+
+* Add dimensional data for language skills, challenges, items types
+* Call __/update_articles_from_files__ and __/update_tense_challenge_items__ to load initial learning items to the database

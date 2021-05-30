@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<ul>
+    {% for r in results %}
+    <li>
+        {% if r["correct"] %}
+        Correct: {{r["question"].split("{")[0]}} {{r["user_answer"]}} {{r["question"].split("}")[1]}}
+        {% else %}
+            <p style="color: red">
+            Wrong: {{r["question"].split("{")[0]}} {{r["user_answer"]}} {{r["question"].split("}")[1]}}
+            </p>
+        Correct: {{r["question"].split("{")[0]}} {{r["answer"]}} {{r["question"].split("}")[1]}}
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="{{ url_for('main.tenses_question') }}" class="navbar-item">
+    <button type="button">Next exercises</button>
+</a>
+
+{% endblock %}

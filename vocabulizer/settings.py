@@ -4,7 +4,11 @@ import json
 root_path = os.path.dirname(os.path.join(__file__))
 secrets_path = os.path.join(root_path, "secrets")
 dictionaries_path = os.path.join(root_path, "dictionaries")
+texts_path = os.path.join(root_path, "texts")
 api_version = "v0"
+
+DAYS_BEFORE_FORGETTING_THRESHOLD = 60
+READING_TEXTS_TOP_LIMIT = 100
 
 with open(os.path.join(secrets_path, "wordnik.json"), 'r') as f:
     wordnik_api_key = json.load(f)["API_KEY"]

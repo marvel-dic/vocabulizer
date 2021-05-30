@@ -8,3 +8,5 @@ Flask-SQLAlchemy==2.5.1
 honcho==1.0.1
 psycopg2
 gunicorn==20.0.4
+apscheduler
+scikit-learn

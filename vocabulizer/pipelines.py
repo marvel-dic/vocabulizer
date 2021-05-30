@@ -30,6 +30,32 @@ def used_vocabulary(text):
     return words
 
 
+def lemma(word):
+    doc = nlp(word)
+    for token in doc:
+        return token.lemma_
+
+
+def new_words_complexity(text, known_words):
+    """
+    string: text
+    list: known_words in format (POS, word)
+    """
+    used_words = used_vocabulary(text)
+    return len(set(used_words.keys()).difference(set(known_words)))/len(used_words.keys())
+
+
+def novelty_coefficient(text, known_words):
+    """
+    string: text
+    list: known_words in format (POS, word)
+    """
+    complexity = new_words_complexity(text, known_words)
+    if complexity == 0:
+        return float("inf")
+    return 1 / complexity * (0.2 - complexity) ** 2
+
+
 if __name__ == "__main__":
     ext = ("When Sebastian Thrun started working on self-driving cars at "
            "Google in 2007, few people outside of the company took him "
