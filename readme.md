@@ -1,4 +1,4 @@
-You can deploy app using __deploy.sh__ script. But you will also need to set up Postgres Database on the instance
+You can deploy app using __deploy.sh__ script
 
 Before usage you should add some data to the database
 
